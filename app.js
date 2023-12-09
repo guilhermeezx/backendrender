@@ -1,6 +1,7 @@
 const express = require('express')
 const banco = require("./banco")
 const veiculo = require("./veiculo")
+const cors = require('cors');
 
 const app = express()
 app.use(express.json())
@@ -20,6 +21,13 @@ const PORTA = 3000
 app.listen( PORTA, function(){
     console.log("Servidor iniciados na porta "+PORTA);
 })
+
+const corsOptions = {
+    origin: ['http://127.0.0.1:5500'],
+    methods: 'GET,POST'
+  };
+  
+  app.use(cors(corsOptions));
 
 app.get("/veiculos/",async function(req, res) {
     const resultado = await veiculo.veiculo.findAll()
